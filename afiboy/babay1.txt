@@ -1,11 +1,17 @@
-# Define the URL where your PowerShell script is hosted
-$scriptUrl = "https://raw.githubusercontent.com/osacarbald/newuplsss/main/menu/og.ps1"  # Replace with the actual URL to your
+# Define a parameter block to accept the input parameter
+param (
+    [string]$param  # The 'param' variable passed from the parent script
+)
 
-# Check if the script is running with administrator privileges
-If (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    # If not running as administrator, restart the script with admin rights
-    Start-Process powershell.exe -ArgumentList "-NoExit -ExecutionPolicy Bypass -Command `"& { iwr -Uri '$scriptUrl' -UseBasicParsing | iex }`"" -Verb RunAs
-    Exit
+# Alternative way to get the parameter if not using param block
+# $param = $args[0]
+
+# Display the parameter value
+Write-Host "Parameter received from parent script: $param"
+
+# Example usage of the parameter
+If ($param -eq "nextValue") {
+    Write-Host "Parameter matches the expected value."
+} else {
+    Write-Host "Parameter does not match. Received: $param"
 }
-
-Write-Host "Running as Administrator..."
