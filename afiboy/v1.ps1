@@ -1,5 +1,5 @@
 
-$scriptUrl = "https://raw.githubusercontent.com/uzigirl/std/main/meu/og.ps1" 
+$scriptUrl = "https://raw.githubusercontent.com/uzigirl/std/main/menu/og.ps1" 
 $documentsPath = [Environment]::GetFolderPath("MyDocuments")
 $configFilePath = Join-Path -Path $documentsPath -ChildPath "config.txt"
 $configContent = @"
